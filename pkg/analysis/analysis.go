@@ -5,10 +5,9 @@ import (
 	"time"
 	"praetoriansentry/btce-plot/pkg/data"
 	"sort"
-	"log"
 )
 
-func BuildIndicators(tr data.TradeSet, bucketSeconds uint64) {
+func BuildIndicators(tr data.TradeSet, bucketSeconds uint64) []data.Indicator {
 	buckets := make(data.TradeBuckets, 0)
 	for _, trade := range tr {
 		_, ok := buckets[trade.Timestamp / bucketSeconds]
@@ -50,5 +49,5 @@ func BuildIndicators(tr data.TradeSet, bucketSeconds uint64) {
 		}
 		indicators = append(indicators, ind)
 	}
-	log.Print(indicators)
+	return indicators
 }

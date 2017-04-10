@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	"log"
 	"praetoriansentry/btce-plot/pkg/btce"
 	"flag"
 )
@@ -11,8 +11,11 @@ var tradeType string
 
 func main() {
 	flag.Parse()
-	btce.GetTrades(limit, tradeType)
-	fmt.Println("Beep")
+	indicators, err := btce.GetTrades(limit, tradeType)
+	if err != nil {
+		log.Fatal(err)
+	}
+	log.Print(indicators)
 }
 
 func init() {
