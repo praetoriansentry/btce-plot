@@ -3,13 +3,16 @@ package btce
 import (
 	"net/http"
 	"log"
+	"fmt"
 	"encoding/json"
 	"io/ioutil"
 	"praetoriansentry/btce-plot/pkg/data"
 )
 
-func GetTrades() {
-	resp, err := http.Get("https://btc-e.com/api/3/trades/eth_usd")
+func GetTrades(limit int, tradeType string) {
+	url := fmt.Sprintf("https://btc-e.com/api/3/trades/%s?limit=%d", tradeType, limit)
+	log.Printf("Fetching data from BTC-E url: %s", url)
+	resp, err := http.Get(url)
 	if err != nil {
 		log.Print("There was an issue connecting to btce")
 		log.Print(err)
