@@ -7,6 +7,7 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"praetoriansentry/btce-plot/pkg/data"
+	"praetoriansentry/btce-plot/pkg/analysis"
 )
 
 func GetTrades(limit int, tradeType string) {
@@ -35,7 +36,11 @@ func GetTrades(limit int, tradeType string) {
 		return
 	}
 	
-
-	log.Print(responseData)
+	ts, ok := responseData[tradeType]
+	if !ok {
+		log.Print("Data didn't contain a valid trade type")
+		return
+	}
+	analysis.BuildIndicators(ts, 60)
 	
 }
