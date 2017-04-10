@@ -1,14 +1,14 @@
 package btce
 
 import (
-	"errors"
-	"net/http"
-	"log"
-	"fmt"
 	"encoding/json"
+	"errors"
+	"fmt"
 	"io/ioutil"
-	"praetoriansentry/btce-plot/pkg/data"
+	"log"
+	"net/http"
 	"praetoriansentry/btce-plot/pkg/analysis"
+	"praetoriansentry/btce-plot/pkg/data"
 )
 
 func GetTrades(limit int, tradeType string) ([]data.Indicator, error) {
@@ -30,13 +30,13 @@ func GetTrades(limit int, tradeType string) ([]data.Indicator, error) {
 
 	var responseData data.TradeResponse
 	err = json.Unmarshal(body, &responseData)
-	
+
 	if err != nil {
 		log.Print("There was an issue reading the json data")
 		log.Print(err)
 		return nil, err
 	}
-	
+
 	ts, ok := responseData[tradeType]
 	if !ok {
 		log.Print("Data didn't contain a valid trade type")
@@ -44,5 +44,5 @@ func GetTrades(limit int, tradeType string) ([]data.Indicator, error) {
 	}
 	indicators := analysis.BuildIndicators(ts, 5*60)
 	return indicators, nil
-	
+
 }

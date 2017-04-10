@@ -1,10 +1,10 @@
 package main
 
 import (
+	"flag"
 	"log"
 	"praetoriansentry/btce-plot/pkg/btce"
 	"praetoriansentry/btce-plot/pkg/plot"
-	"flag"
 )
 
 var limit int
@@ -29,5 +29,5 @@ func init() {
 	flag.IntVar(&y, "y", 1080, "Y Dimension in Px")
 	flag.StringVar(&tradeType, "type", "eth_usd", "Trade type")
 	flag.StringVar(&out, "o", "graph.png", "Output Filename")
-	
+
 }

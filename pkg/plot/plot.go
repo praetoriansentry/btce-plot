@@ -1,9 +1,9 @@
 package plot
 
 import (
-	"log"
-	"io/ioutil"
 	"fmt"
+	"io/ioutil"
+	"log"
 	"os"
 	"os/exec"
 	"praetoriansentry/btce-plot/pkg/data"
@@ -27,12 +27,12 @@ func getRange(indicators []data.Indicator) (string, string) {
 	return indicators[0].Date, indicators[l-1].Date
 }
 
-func createDatFile(indicators []data.Indicator) string{
+func createDatFile(indicators []data.Indicator) string {
 	tmpfile, err := ioutil.TempFile("", "dat")
 	if err != nil {
 		log.Fatal(err)
 	}
-	for _ , i:= range indicators {
+	for _, i := range indicators {
 		fmt.Fprintf(tmpfile, "%s %f %f %f %f %f\r\n", i.Date, i.Open, i.Low, i.High, i.Close, i.Volume)
 	}
 	tmpfile.Close()
@@ -50,12 +50,12 @@ func getTemplate() *template.Template {
 
 func writeTemplateData(t *template.Template, fileName, outputName string, x, y int, xMin, xMax string) string {
 	templateData := struct {
-		DatName    string
+		DatName string
 		OutName string
-		X int
-		Y int
-		XMin string
-		XMax string
+		X       int
+		Y       int
+		XMin    string
+		XMax    string
 	}{
 		fileName,
 		outputName,
@@ -77,10 +77,10 @@ func writeTemplateData(t *template.Template, fileName, outputName string, x, y i
 		log.Fatal(err)
 	}
 	return gnuTemplate.Name()
-	
+
 }
 
-func createPng( templateName string) {
+func createPng(templateName string) {
 	c := exec.Command("gnuplot", templateName)
 
 	stdout, err := c.StdoutPipe()
