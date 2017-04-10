@@ -3,3 +3,4 @@ build:
 
 clean:
 	$(RM) plotter
+	$(RM) graph.png
