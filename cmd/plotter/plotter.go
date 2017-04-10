@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"praetoriansentry/btce-plot/pkg/btce"
+	"praetoriansentry/btce-plot/pkg/plot"
 	"flag"
 )
 
@@ -16,6 +17,7 @@ func main() {
 		log.Fatal(err)
 	}
 	log.Print(indicators)
+	plot.CreatePlot(indicators, 1920, 1080)
 }
 
 func init() {
