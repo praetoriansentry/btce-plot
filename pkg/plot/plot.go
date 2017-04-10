@@ -4,6 +4,7 @@ import (
 	"log"
 	"io/ioutil"
 	"fmt"
+	"os"
 	"os/exec"
 	"praetoriansentry/btce-plot/pkg/data"
 	"text/template"
@@ -13,8 +14,17 @@ func CreatePlot(indicators []data.Indicator, outputName string, x, y int) {
 	log.Print("Creating plot")
 	datName := createDatFile(indicators)
 	t := getTemplate()
-	pt := writeTemplateData(t, datName, outputName, x, y)
+	xMin, xMax := getRange(indicators)
+	pt := writeTemplateData(t, datName, outputName, x, y, xMin, xMax)
 	createPng(pt)
+
+	os.Remove(datName)
+	os.Remove(pt)
+}
+
+func getRange(indicators []data.Indicator) (string, string) {
+	l := len(indicators)
+	return indicators[0].Date, indicators[l-1].Date
 }
 
 func createDatFile(indicators []data.Indicator) string{
@@ -23,7 +33,7 @@ func createDatFile(indicators []data.Indicator) string{
 		log.Fatal(err)
 	}
 	for _ , i:= range indicators {
-		fmt.Fprintf(tmpfile, "%s %f %f %f %f %f\n", i.Date, i.Open, i.High, i.Low, i.Close, i.Volume)
+		fmt.Fprintf(tmpfile, "%s %f %f %f %f %f\r\n", i.Date, i.Open, i.Low, i.High, i.Close, i.Volume)
 	}
 	tmpfile.Close()
 	return tmpfile.Name()
@@ -38,17 +48,21 @@ func getTemplate() *template.Template {
 	return plotTemplate
 }
 
-func writeTemplateData(t *template.Template, fileName, outputName string, x, y int) string {
+func writeTemplateData(t *template.Template, fileName, outputName string, x, y int, xMin, xMax string) string {
 	templateData := struct {
 		DatName    string
 		OutName string
 		X int
 		Y int
+		XMin string
+		XMax string
 	}{
 		fileName,
 		outputName,
 		x,
 		y,
+		xMin,
+		xMax,
 	}
 
 	gnuTemplate, err := ioutil.TempFile("", "gnutemplate")
@@ -83,12 +97,12 @@ func createPng( templateName string) {
 		log.Fatal(err)
 	}
 
-
-	gnuplotOutput, err := ioutil.ReadAll(stdout)
+	_, err = ioutil.ReadAll(stdout)
 	if err != nil {
 		log.Fatal(err)
 	}
-	gnuplotOutputerr, err := ioutil.ReadAll(stderr)
+
+	_, err = ioutil.ReadAll(stderr)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -97,8 +111,5 @@ func createPng( templateName string) {
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	log.Print(gnuplotOutput)
-	log.Print(gnuplotOutputerr)
 
 }

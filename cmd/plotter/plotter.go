@@ -19,8 +19,8 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	log.Print(indicators)
 	plot.CreatePlot(indicators, out, x, y)
+	log.Print("Plot created")
 }
 
 func init() {

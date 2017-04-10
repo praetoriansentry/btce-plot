@@ -42,7 +42,7 @@ func GetTrades(limit int, tradeType string) ([]data.Indicator, error) {
 		log.Print("Data didn't contain a valid trade type")
 		return nil, errors.New("Mismatched trade type")
 	}
-	indicators := analysis.BuildIndicators(ts, 60)
+	indicators := analysis.BuildIndicators(ts, 5*60)
 	return indicators, nil
 	
 }

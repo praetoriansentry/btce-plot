@@ -41,6 +41,7 @@ func BuildIndicators(tr data.TradeSet, bucketSeconds uint64) []data.Indicator {
 		v, _ := stats.Sum(amounts)
 		ind := data.Indicator{
 			Date: t.Format("2006-01-02T15:04:05"),
+			Timestamp: times[0],
 			Open: prices[0],
 			High: h,
 			Low: l,
@@ -49,5 +50,6 @@ func BuildIndicators(tr data.TradeSet, bucketSeconds uint64) []data.Indicator {
 		}
 		indicators = append(indicators, ind)
 	}
+	sort.Sort(data.IndicatorSet(indicators))
 	return indicators
 }

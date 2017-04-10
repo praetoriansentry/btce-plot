@@ -15,6 +15,7 @@ type Indicator struct {
 	Low float64
 	Close float64
 	Volume float64
+	Timestamp uint64
 }
 
 type TradeResponse map[string]TradeSet
@@ -26,3 +27,9 @@ type TradeSet []Trade
 func (t TradeSet) Len() int {return len(t)}
 func (t TradeSet) Swap(i, j int)  { t[i], t[j] = t[j], t[i] }
 func (t TradeSet) Less(i, j int) bool {return t[i].Timestamp < t[j].Timestamp }
+
+type IndicatorSet []Indicator
+
+func (is IndicatorSet) Len() int {return len(is)}
+func (is IndicatorSet) Swap(i, j int)  { is[i], is[j] = is[j], is[i] }
+func (is IndicatorSet) Less(i, j int) bool {return is[i].Timestamp < is[j].Timestamp }
