@@ -1,4 +1,8 @@
+{{ if eq .Mode "canvas" }}
+set terminal canvas enhanced font "arial,12" fontscale 1.0 size {{.X}}, {{.Y}} jsdir './js' mousing
+{{ else }}
 set terminal pngcairo enhanced font "arial,12" fontscale 1.0 size {{.X}}, {{.Y}}
+{{ end }}
 set output '{{.OutName}}'
 
 set border linecolor rgbcolor "yellow"
@@ -28,6 +32,6 @@ show xlabel
 set ylabel "ETH Price in USD" textcolor "yellow"
 show ylabel
 
-plot '{{.DatName}}' using 1:2:3:4:5:($5 < $2 ? -1 : 1) with candlesticks palette title 'Candelsticks'
+plot '{{.DatName}}' using 1:2:3:4:5:($5 < $2 ? -1 : 1) with candlesticks palette title 'Candlesticks'
 
 

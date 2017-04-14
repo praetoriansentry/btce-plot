@@ -13,6 +13,7 @@ var y int
 var tradeType string
 var out string
 var bucketSize int
+var terminal string
 
 func main() {
 	flag.Parse()
@@ -20,7 +21,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	plot.CreatePlot(indicators, out, x, y, bucketSize)
+	plot.CreatePlot(indicators, out, terminal, x, y, bucketSize)
 	log.Print("Plot created")
 }
 
@@ -31,5 +32,6 @@ func init() {
 	flag.IntVar(&y, "y", 1080, "Y Dimension in Px")
 	flag.StringVar(&tradeType, "type", "eth_usd", "Trade type")
 	flag.StringVar(&out, "o", "graph.png", "Output Filename")
+	flag.StringVar(&terminal, "t", "pngcairo", "The gnuplot terminal that we'll use")
 
 }
