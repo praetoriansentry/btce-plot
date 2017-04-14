@@ -4,8 +4,8 @@ type Trade struct {
 	Type      string  `json:"type"`
 	Price     float64 `json:"price"`
 	Amount    float64 `json:"amount"`
-	Tid       int  `json:"tid"`
-	Timestamp int  `json:"timestamp"`
+	Tid       int     `json:"tid"`
+	Timestamp int     `json:"timestamp"`
 }
 
 type Indicator struct {

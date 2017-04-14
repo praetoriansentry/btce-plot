@@ -50,12 +50,12 @@ func getTemplate() *template.Template {
 
 func writeTemplateData(t *template.Template, fileName, outputName string, x, y int, xMin, xMax string, bucketSeconds int) string {
 	templateData := struct {
-		DatName string
-		OutName string
-		X       int
-		Y       int
-		XMin    string
-		XMax    string
+		DatName       string
+		OutName       string
+		X             int
+		Y             int
+		XMin          string
+		XMax          string
 		BucketSeconds int
 	}{
 		fileName,
