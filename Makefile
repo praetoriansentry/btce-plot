@@ -8,3 +8,5 @@ clean:
 neat:
 	find . -type f -name '*.go' | xargs -I{} go fmt {}
 
+install:
+	go install cmd/plotter/plotter.go
