@@ -12,19 +12,21 @@ var x int
 var y int
 var tradeType string
 var out string
+var bucketSize int
 
 func main() {
 	flag.Parse()
-	indicators, err := btce.GetTrades(limit, tradeType)
+	indicators, err := btce.GetTrades(limit, tradeType, bucketSize)
 	if err != nil {
 		log.Fatal(err)
 	}
-	plot.CreatePlot(indicators, out, x, y)
+	plot.CreatePlot(indicators, out, x, y, bucketSize)
 	log.Print("Plot created")
 }
 
 func init() {
 	flag.IntVar(&limit, "limit", 150, "Trade Limit")
+	flag.IntVar(&bucketSize, "bucket", 60, "The number of seconds that we'll use for bucketing")
 	flag.IntVar(&x, "x", 1920, "X Dimension in Px")
 	flag.IntVar(&y, "y", 1080, "Y Dimension in Px")
 	flag.StringVar(&tradeType, "type", "eth_usd", "Trade type")

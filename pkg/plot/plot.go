@@ -10,12 +10,12 @@ import (
 	"text/template"
 )
 
-func CreatePlot(indicators []data.Indicator, outputName string, x, y int) {
+func CreatePlot(indicators []data.Indicator, outputName string, x, y, bucketSeconds int) {
 	log.Print("Creating plot")
 	datName := createDatFile(indicators)
 	t := getTemplate()
 	xMin, xMax := getRange(indicators)
-	pt := writeTemplateData(t, datName, outputName, x, y, xMin, xMax)
+	pt := writeTemplateData(t, datName, outputName, x, y, xMin, xMax, bucketSeconds)
 	createPng(pt)
 
 	os.Remove(datName)
@@ -48,7 +48,7 @@ func getTemplate() *template.Template {
 	return plotTemplate
 }
 
-func writeTemplateData(t *template.Template, fileName, outputName string, x, y int, xMin, xMax string) string {
+func writeTemplateData(t *template.Template, fileName, outputName string, x, y int, xMin, xMax string, bucketSeconds int) string {
 	templateData := struct {
 		DatName string
 		OutName string
@@ -56,6 +56,7 @@ func writeTemplateData(t *template.Template, fileName, outputName string, x, y i
 		Y       int
 		XMin    string
 		XMax    string
+		BucketSeconds int
 	}{
 		fileName,
 		outputName,
@@ -63,6 +64,7 @@ func writeTemplateData(t *template.Template, fileName, outputName string, x, y i
 		y,
 		xMin,
 		xMax,
+		bucketSeconds * 50 / 100,
 	}
 
 	gnuTemplate, err := ioutil.TempFile("", "gnutemplate")

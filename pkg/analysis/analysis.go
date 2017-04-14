@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-func BuildIndicators(tr data.TradeSet, bucketSeconds uint64) []data.Indicator {
+func BuildIndicators(tr data.TradeSet, bucketSeconds int) []data.Indicator {
 	buckets := make(data.TradeBuckets, 0)
 	for _, trade := range tr {
 		_, ok := buckets[trade.Timestamp/bucketSeconds]
@@ -29,7 +29,7 @@ func BuildIndicators(tr data.TradeSet, bucketSeconds uint64) []data.Indicator {
 
 		prices := make([]float64, 0)
 		amounts := make([]float64, 0)
-		times := make([]uint64, 0)
+		times := make([]int, 0)
 		for _, trade := range bucket {
 			prices = append(prices, trade.Price)
 			amounts = append(amounts, trade.Amount)

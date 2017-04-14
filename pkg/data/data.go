@@ -4,8 +4,8 @@ type Trade struct {
 	Type      string  `json:"type"`
 	Price     float64 `json:"price"`
 	Amount    float64 `json:"amount"`
-	Tid       uint64  `json:"tid"`
-	Timestamp uint64  `json:"timestamp"`
+	Tid       int  `json:"tid"`
+	Timestamp int  `json:"timestamp"`
 }
 
 type Indicator struct {
@@ -15,12 +15,12 @@ type Indicator struct {
 	Low       float64
 	Close     float64
 	Volume    float64
-	Timestamp uint64
+	Timestamp int
 }
 
 type TradeResponse map[string]TradeSet
-type TradeBuckets map[uint64]TradeSet
-type TradeIndicators map[uint64][]Indicator
+type TradeBuckets map[int]TradeSet
+type TradeIndicators map[int][]Indicator
 
 type TradeSet []Trade
 

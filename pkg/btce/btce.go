@@ -11,7 +11,7 @@ import (
 	"praetoriansentry/btce-plot/pkg/data"
 )
 
-func GetTrades(limit int, tradeType string) ([]data.Indicator, error) {
+func GetTrades(limit int, tradeType string, bucketSize int) ([]data.Indicator, error) {
 	url := fmt.Sprintf("https://btc-e.com/api/3/trades/%s?limit=%d", tradeType, limit)
 	log.Printf("Fetching data from BTC-E url: %s", url)
 	resp, err := http.Get(url)
@@ -42,7 +42,7 @@ func GetTrades(limit int, tradeType string) ([]data.Indicator, error) {
 		log.Print("Data didn't contain a valid trade type")
 		return nil, errors.New("Mismatched trade type")
 	}
-	indicators := analysis.BuildIndicators(ts, 5*60)
+	indicators := analysis.BuildIndicators(ts, bucketSize)
 	return indicators, nil
 
 }
