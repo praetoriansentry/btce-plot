@@ -26,11 +26,13 @@ set style fill empty
 
 set format x "%m/%d %H:%M"
 
-set title "BTC-E ETH Prices" textcolor rgbcolor "white"
+#set title "BTC-E ETH Prices" textcolor rgbcolor "white"
+
 set xlabel "Time in UTC" textcolor "yellow"
 show xlabel
-set ylabel "ETH Price in USD" textcolor "yellow"
-show ylabel
+
+#set ylabel "ETH Price in USD" textcolor "yellow"
+#show ylabel
 
 plot '{{.DatName}}' using 1:2:3:4:5:($5 < $2 ? -1 : 1) with candlesticks palette title 'Candlesticks'
 
