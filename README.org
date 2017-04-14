@@ -1,4 +1,4 @@
-#+TITLE:
+#+TITLE: BTC-e Candlestick Plot
 #+DATE:
 #+AUTHOR: John Hilliard
 #+EMAIL: jhilliard@nextjump.com
@@ -12,6 +12,12 @@
 #+LATEX_HEADER: \geometry{left=1in,right=1in,top=1in,bottom=1in}
 #+LaTeX_CLASS_OPTIONS: [letterpaper]
 
+This is a basic gnuplot and Go script that can create a candlestick
+plot of the BTC-e data. In particular I use it for Etherum prices.
+
+[[file:graph.png]]
+
+
 #+BEGIN_SRC bash
 # Build the plotter
 make build
@@ -24,7 +30,7 @@ Arguments that can be provided to graph:
 
 - Bucket - How many seconds to make into single buckets for the plot
 - Limt - The number of trades to look at
-- Type - The type of trade from BTC-E that we'll look at
+- Type - The type of trade from BTC-e that we'll look at
 - x/y - The size of the output of the file
 - o - The output file name
 
