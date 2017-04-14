@@ -14,17 +14,20 @@ unset colorbox
 set style fill solid noborder
 set boxwidth {{ .BucketSeconds }} absolute
 
-set title "BTC-E ETH Prices" textcolor rgbcolor "white"
-
-
 set xdata time
 set timefmt "%Y-%m-%dT%H:%M:%S"
 set xrange["{{.XMin}}":"{{.XMax}}"]
 set bars 4.0
 set style fill empty
 
-plot '{{.DatName}}' using 1:2:3:4:5:($5 < $2 ? -1 : 1) with candlesticks palette
+set format x "%m/%d %H:%M"
 
-#title 'Quartiles'
+set title "BTC-E ETH Prices" textcolor rgbcolor "white"
+set xlabel "Time in UTC" textcolor "yellow"
+show xlabel
+set ylabel "ETH Price in USD" textcolor "yellow"
+show ylabel
+
+plot '{{.DatName}}' using 1:2:3:4:5:($5 < $2 ? -1 : 1) with candlesticks palette title 'Candelsticks'
 
 
