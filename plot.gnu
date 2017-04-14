@@ -1,4 +1,4 @@
-set terminal pngcairo enhanced font "arial,8" fontscale 1.0 size {{.X}}, {{.Y}}
+set terminal pngcairo enhanced font "arial,12" fontscale 1.0 size {{.X}}, {{.Y}}
 set output '{{.OutName}}'
 
 set border linecolor rgbcolor "yellow"
