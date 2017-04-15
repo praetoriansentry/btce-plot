@@ -57,7 +57,7 @@ func writeTemplateData(t *template.Template, fileName, outputName, mode string, 
 		XMin          string
 		XMax          string
 		BucketSeconds int
-		Mode string
+		Mode          string
 	}{
 		fileName,
 		outputName,
