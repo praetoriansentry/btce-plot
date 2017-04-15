@@ -17,7 +17,7 @@ var terminal string
 
 func main() {
 	flag.Parse()
-	indicators, err := btce.GetTrades(limit, tradeType, bucketSize)
+	indicators, err := btce.GetIndicators(limit, tradeType, bucketSize)
 	if err != nil {
 		log.Fatal(err)
 	}
