@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"os"
 	"praetoriansentry/btce-plot/pkg/data"
+	"sort"
 )
 
 func WriteToFile(ts data.TradeSet, fileName string) error {
@@ -44,9 +45,10 @@ func mergeSets(ts1, ts2 data.TradeSet) data.TradeSet {
 	var trades data.TradeSet = make(data.TradeSet, 0)
 	for _, t := range tidMap {
 		trades = append(trades, t)
-	}
-	return trades
 
+	}
+	sort.Sort(trades)
+	return trades
 }
 
 func loadTradeFile(fileName string) (data.TradeSet, error) {
